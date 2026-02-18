@@ -1,19 +1,31 @@
 public class PalindromeCheckerAPP {
+
     public static void main(String[] args) {
-        System.out.println("Welcome to the Palindrome Checker Management System");
-        System.out.println("Version : 1.0");
-        System.out.println("System initialized successfully.");
-        //usecase2
+        // UC1
         System.out.println("=====================================");
         System.out.println(" Welcome to Palindrome Checker App ");
         System.out.println(" Version: 1.0.0 ");
         System.out.println("=====================================");
-        String word = "madam";
-        String reversed = new StringBuilder(word).reverse().toString();
-        if (word.equals(reversed)) {
-            System.out.println(" The word \"" + word + "\" is a palindrome.");
+
+        // UC2
+        String wordUC2 = "madam";
+        String reversedUC2 = new StringBuilder(wordUC2).reverse().toString();
+
+        if (wordUC2.equals(reversedUC2)) {
+            System.out.println(" UC2: The word \"" + wordUC2 + "\" is a palindrome.");
         } else {
-            System.out.println(" The word \"" + word + "\" is NOT a palindrome.");
+            System.out.println(" UC2: The word \"" + wordUC2 + "\" is NOT a palindrome.");
+        }
+        // UC3
+        String wordUC3 = "level";
+        String reversedUC3 = "";
+        for (int i = wordUC3.length() - 1; i >= 0; i--) {
+            reversedUC3 = reversedUC3 + wordUC3.charAt(i);
+        }
+        if (wordUC3.equals(reversedUC3)) {
+            System.out.println(" UC3: The word \"" + wordUC3 + "\" is a palindrome.");
+        } else {
+            System.out.println(" UC3: The word \"" + wordUC3 + "\" is NOT a palindrome.");
         }
     }
 }
