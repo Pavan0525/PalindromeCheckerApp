@@ -16,7 +16,7 @@ class Node {
 public class PalindromeCheckerAPP {
 
     public static void main(String[] args) {
-        // UC1:
+        // UC1: Welcome message
         System.out.println("=====================================");
         System.out.println(" Welcome to Palindrome Checker App ");
         System.out.println(" Version: 1.0.0 ");
@@ -33,7 +33,7 @@ public class PalindromeCheckerAPP {
         String wordUC3 = "level";
         String reversedUC3 = "";
         for (int i = wordUC3.length() - 1; i >= 0; i--) {
-            reversedUC3 = reversedUC3 + wordUC3.charAt(i);
+            reversedUC3 += wordUC3.charAt(i);
         }
         boolean isPalindromeUC3 = wordUC3.equals(reversedUC3);
         System.out.println("Input text : " + wordUC3);
@@ -61,11 +61,11 @@ public class PalindromeCheckerAPP {
         for (char c : wordUC5.toCharArray()) {
             stack.push(c);
         }
-        String reversedUC5 = "";
+        String reversedStack = "";
         while (!stack.isEmpty()) {
-            reversedUC5 = reversedUC5 + stack.pop();
+            reversedStack += stack.pop();
         }
-        boolean isPalindromeUC5 = wordUC5.equals(reversedUC5);
+        boolean isPalindromeUC5 = wordUC5.equals(reversedStack);
         System.out.println("Input : " + wordUC5);
         System.out.println("Is it a palindrome: " + isPalindromeUC5);
 
@@ -79,9 +79,7 @@ public class PalindromeCheckerAPP {
         }
         boolean isPalindromeUC6 = true;
         while (!queue.isEmpty()) {
-            char fromQueue = queue.remove();
-            char fromStack = stackUC6.pop();
-            if (fromQueue != fromStack) {
+            if (!queue.remove().equals(stackUC6.pop())) {
                 isPalindromeUC6 = false;
                 break;
             }
@@ -97,9 +95,7 @@ public class PalindromeCheckerAPP {
         }
         boolean isPalindromeUC7 = true;
         while (deque.size() > 1) {
-            char front = deque.removeFirst();
-            char rear = deque.removeLast();
-            if (front != rear) {
+            if (deque.removeFirst() != deque.removeLast()) {
                 isPalindromeUC7 = false;
                 break;
             }
@@ -112,9 +108,19 @@ public class PalindromeCheckerAPP {
         boolean isPalindromeUC8 = isPalindromeLinkedList(wordUC8);
         System.out.println("Input : " + wordUC8);
         System.out.println("Is Palindrome?: " + isPalindromeUC8);
+
+        // UC9: Recursive Palindrome Checker
+        String wordUC9 = "deified";
+        boolean isPalindromeUC9 = isPalindromeRecursive(wordUC9, 0, wordUC9.length() - 1);
+        System.out.println("Input : " + wordUC9);
+        System.out.println("Is Palindrome? (Recursive): " + isPalindromeUC9);
     }
 
-    // Helper: Build linked list from string
+    // -----------------------
+    // Helper methods
+    // -----------------------
+
+    // Build linked list from string (UC8)
     private static Node buildLinkedList(String word) {
         Node head = null, tail = null;
         for (char c : word.toCharArray()) {
@@ -130,12 +136,10 @@ public class PalindromeCheckerAPP {
         return head;
     }
 
-    // UC8 palindrome check
+    // UC8 palindrome check using linked list
     private static boolean isPalindromeLinkedList(String word) {
         Node head = buildLinkedList(word);
-        if (head == null || head.next == null) {
-            return true;
-        }
+        if (head == null || head.next == null) return true;
 
         // Find middle
         Node slow = head, fast = head;
@@ -148,12 +152,9 @@ public class PalindromeCheckerAPP {
         Node secondHalf = reverseList(slow);
 
         // Compare halves
-        Node firstHalf = head;
-        Node tempSecond = secondHalf;
+        Node firstHalf = head, tempSecond = secondHalf;
         while (tempSecond != null) {
-            if (firstHalf.data != tempSecond.data) {
-                return false;
-            }
+            if (firstHalf.data != tempSecond.data) return false;
             firstHalf = firstHalf.next;
             tempSecond = tempSecond.next;
         }
@@ -170,5 +171,12 @@ public class PalindromeCheckerAPP {
             current = next;
         }
         return prev;
+    }
+
+    // UC9: Recursive palindrome check
+    private static boolean isPalindromeRecursive(String word, int start, int end) {
+        if (start >= end) return true; // base condition
+        if (word.charAt(start) != word.charAt(end)) return false;
+        return isPalindromeRecursive(word, start + 1, end - 1);
     }
 }
