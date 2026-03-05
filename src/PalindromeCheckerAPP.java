@@ -114,6 +114,12 @@ public class PalindromeCheckerAPP {
         boolean isPalindromeUC9 = isPalindromeRecursive(wordUC9, 0, wordUC9.length() - 1);
         System.out.println("Input : " + wordUC9);
         System.out.println("Is Palindrome? (Recursive): " + isPalindromeUC9);
+
+        // UC10: Case-insensitive & space-ignored palindrome
+        String wordUC10 = "a man a plane a canal panama";
+        boolean isPalindromeUC10 = isPalindromeIgnoreCaseSpace(wordUC10);
+        System.out.println("Input : " + wordUC10);
+        System.out.println("Is Palindrome? (Ignore case & spaces): " + isPalindromeUC10);
     }
 
     // -----------------------
@@ -178,5 +184,19 @@ public class PalindromeCheckerAPP {
         if (start >= end) return true; // base condition
         if (word.charAt(start) != word.charAt(end)) return false;
         return isPalindromeRecursive(word, start + 1, end - 1);
+    }
+
+    // UC10: Case-insensitive & space-ignored palindrome
+    private static boolean isPalindromeIgnoreCaseSpace(String word) {
+        String normalized = word.replaceAll("\\s+", "").toLowerCase();
+        int left = 0, right = normalized.length() - 1;
+        while (left < right) {
+            if (normalized.charAt(left) != normalized.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
     }
 }
